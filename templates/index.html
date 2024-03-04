@@ -102,13 +102,25 @@
             <input type="submit" value="Submit">
         </form>
         <br><br>
-        <ul>
-            {% for product in products %}
-                <li>
-                    {{ product[1] }} - {{ product[2] }} - {{ product[3] }} 
-                </li>
-            {% endfor %}
-        </ul>
+        <table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product[0] }}</td>
+                <td>{{ product[1] }}</td>
+                <td>{{ product[2] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
     </div>
 </body>
 
