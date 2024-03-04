@@ -105,7 +105,7 @@
         <ul>
             {% for product in products %}
                 <li>
-                    {{ product.product_name }} - {{ product.price }} - {{ product.quantity }} 
+                    {{ product[1] }} - {{ product[2] }} - {{ product[3] }} 
                 </li>
             {% endfor %}
         </ul>
