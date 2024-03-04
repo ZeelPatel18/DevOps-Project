@@ -16,7 +16,7 @@ mysql = MySQL(app)
 @app.route('/')
 def product_list():
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM products')
+    cur.execute('SELECT product_name, price, quantity FROM products')
     products = cur.fetchall()
     cur.close()
     return render_template('index.html', products=products)
