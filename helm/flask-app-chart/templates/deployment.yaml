@@ -36,14 +36,23 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MYSQL_HOST
+              value: {{ .Values.env.mysqlhost }}          # this is your mysql's service clusture IP, Make sure to change it with yours
+            - name: MYSQL_PASSWORD
+              value: {{ .Values.env.mysqlpw }}
+            - name: MYSQL_USER
+              value: {{ .Values.env.mysqluser }}
+            - name: MYSQL_DB
+              value: {{ .Values.env.mysqldb }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
-          livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
-          readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          #livenessProbe:
+            #{{- toYaml .Values.livenessProbe | nindent 12 }}
+          #readinessProbe:
+            #{{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
