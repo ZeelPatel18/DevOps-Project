@@ -10,6 +10,12 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
+env:
+  mysqlhost:   #right after running mysql helm chart and get cluster ip from kubctl get svc
+  mysqlpw: admin
+  mysqluser: admin
+  mysqldb: mydb
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -40,8 +46,10 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
+  targetPort: 5000
+  nodePort: 30007
 
 ingress:
   enabled: false
