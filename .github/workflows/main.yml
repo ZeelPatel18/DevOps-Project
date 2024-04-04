@@ -22,13 +22,13 @@ jobs:
 
     - name: Build and Push MySQL Image
       run: |
-        docker build -t zeelpatel7610/mysql .
+        docker-compose build mysql
         docker tag zeelpatel7610/mysql:latest zeelpatel7610/mysql:$(date +%Y%m%d%H%M%S)
         docker push zeelpatel7610/mysql
     
     - name: Build and Push Flask App Image
       run: |
-        docker build -t zeelpatel7610/devops-project_backend .
+        docker-compose build flask-app
         docker tag zeelpatel7610/devops-project_backend:latest zeelpatel7610/devops-project_backend:$(date +%Y%m%d%H%M%S)
         docker push zeelpatel7610/devops-project_backend
 
@@ -43,7 +43,7 @@ jobs:
 
     - name: Update MySQL Image Tag in Helm Chart
       run: |
-        chart_dir="helm/mysql-chart"
+        chart_dir="./helm/mysql-chart"
         new_mysql_image_tag=${{ github.sha }}
 
         # Update the values.yaml file with the new MySQL image tag
@@ -51,7 +51,7 @@ jobs:
 
     - name: Update Flask App Image Tag in Helm Chart
       run: |
-        chart_dir="helm/flask-app-chart"
+        chart_dir="./helm/flask-app-chart"
         new_flask_image_tag=${{ github.sha }}
 
         # Update the values.yaml file with the new Flask app image tag
