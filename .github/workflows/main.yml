@@ -1,0 +1,68 @@
+name: GitOps CI/CD DevOps
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Push Docker Images
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and Push MySQL Image
+      working-directory: ./mysql
+      run: |
+        docker build -t zeelpatel7610/mysql .
+        docker tag zeelpatel7610/mysql:latest zeelpatel7610/mysql:$(date +%Y%m%d%H%M%S)
+        docker push zeelpatel7610/mysql
+    
+    - name: Build and Push Flask App Image
+      working-directory: ./flask-app
+      run: |
+        docker build -t zeelpatel7610/devops-project_backend .
+        docker tag zeelpatel7610/devops-project_backend:latest zeelpatel7610/devops-project_backend:$(date +%Y%m%d%H%M%S)
+        docker push zeelpatel7610/devops-project_backend
+
+  update:
+    name: Update Argo CD Helm Chart
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Update MySQL Image Tag in Helm Chart
+      run: |
+        chart_dir="helm/mysql-chart"
+        new_mysql_image_tag=${{ github.sha }}
+
+        # Update the values.yaml file with the new MySQL image tag
+        sed -i "s/^  mysqlImageTag: .*/  mysqlImageTag: $new_mysql_image_tag/" "$chart_dir/values.yaml"
+
+    - name: Update Flask App Image Tag in Helm Chart
+      run: |
+        chart_dir="helm/flask-app-chart"
+        new_flask_image_tag=${{ github.sha }}
+
+        # Update the values.yaml file with the new Flask app image tag
+        sed -i "s/^  flaskAppImageTag: .*/  flaskAppImageTag: $new_flask_image_tag/" "$chart_dir/values.yaml"
+    
+    - name: Commit and Push Changes to Helm Chart
+      run: | 
+        git config --global user.name 'ZeelPatel18'
+        git config --global user.email '16mscit125@gmail.com'
+        git add .
+        git commit -m "Update Docker image tags in Helm chart"
+        git push
