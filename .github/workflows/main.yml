@@ -21,14 +21,14 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and Push MySQL Image
-      working-directory: ./mysql
+      working-directory: ./Devops-project/mysql
       run: |
         docker build -t zeelpatel7610/mysql .
         docker tag zeelpatel7610/mysql:latest zeelpatel7610/mysql:$(date +%Y%m%d%H%M%S)
         docker push zeelpatel7610/mysql
     
     - name: Build and Push Flask App Image
-      working-directory: ./flask-app
+      working-directory: ./Devops-project/flask-app
       run: |
         docker build -t zeelpatel7610/devops-project_backend .
         docker tag zeelpatel7610/devops-project_backend:latest zeelpatel7610/devops-project_backend:$(date +%Y%m%d%H%M%S)
@@ -40,7 +40,7 @@ jobs:
     needs: build
 
     steps:
-    - name: Check out code
+    - name: Checkout Repository
       uses: actions/checkout@v2
 
     - name: Update MySQL Image Tag in Helm Chart
@@ -58,7 +58,8 @@ jobs:
 
         # Update the values.yaml file with the new Flask app image tag
         sed -i "s/^  flaskAppImageTag: .*/  flaskAppImageTag: $new_flask_image_tag/" "$chart_dir/values.yaml"
-    
+
+      
     - name: Commit and Push Changes to Helm Chart
       run: | 
         git config --global user.name 'ZeelPatel18'
