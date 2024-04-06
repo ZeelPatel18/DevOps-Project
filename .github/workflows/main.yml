@@ -22,7 +22,8 @@ jobs:
 
     - name: Build and Push MySQL Image
       run: |
-        docker-compose -f ../docker-compose.mysql.yml build
+        #docker-compose -f docker-compose.mysql.yml build
+        docker build -t zeelpatel7610/mysql -f docker-compose.mysql.yml .
         docker tag zeelpatel7610/mysql:latest zeelpatel7610/mysql:$(date +%Y%m%d%H%M%S)
         docker push zeelpatel7610/mysql
   
