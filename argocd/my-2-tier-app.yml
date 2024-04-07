@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/ZeelPatel18/DevOps-Project.git'
-    path: '/'   # Path within the Git repositor
+    path: 'helm/'   # Path within the Git repositor
     targetRevision: HEAD
     helm:
       valueFiles:
