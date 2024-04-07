@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: .
-      image: devops-project_backend:latest
+      image: zeelpatel7610/devops-project_backend:latest
     ports:
       - "5000:5000"
     environment:
@@ -16,7 +16,7 @@ services:
       - mysql
 
   mysql:
-    image: mysql:latest
+    image: zeelpatel7610/mysql:latest
     ports:
       - "3306:3306"
     environment:
