@@ -8,4 +8,4 @@ ENV MYSQL_USER=admin
 ENV MYSQL_PASSWORD=admin
 
 # Copy the SQL script into the container to initialize the database
-COPY product.sql /docker-entrypoint-initdb.d/product.sql
+COPY ./product.sql /docker-entrypoint-initdb.d/product.sql
