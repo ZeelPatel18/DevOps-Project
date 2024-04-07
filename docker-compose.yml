@@ -3,8 +3,8 @@ services:
   
   backend:
     build:
-      context: .
-      image: zeelpatel7610/devops-project_backend:latest
+      context: ./flask
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     environment:
@@ -16,14 +16,11 @@ services:
       - mysql
       
   mysql:
-    image: zeelpatel7610/mysql:latest
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: myDb
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
     volumes:
       - ./product.sql:/docker-entrypoint-initdb.d/product.sql   # Mount sql script into container's /docker-entrypoint-initdb.d directory to get table automatically created
       - mysql-data:/var/lib/mysql  # Mount the volume for MySQL data storage
