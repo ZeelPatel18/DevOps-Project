@@ -11,7 +11,7 @@ image:
   tag: "latest"
 
 env:
-  mysqlhost: 192.168.208.242:30007
+  mysqlhost: 192.168.208.242:3306
   mysqlpw: admin
   mysqluser: admin
   mysqldb: mydb
