@@ -50,7 +50,7 @@ jobs:
 
     - name: Update MySQL Image Tag in Helm Chart
       run: |
-        chart_dir="../../helm/mysql-chart"
+        chart_dir="./helm/mysql-chart"
         new_mysql_image_tag=${{ github.sha }}
 
         # Update the values.yaml file with the new MySQL image tag
@@ -58,7 +58,7 @@ jobs:
 
     - name: Update Flask App Image Tag in Helm Chart
       run: |
-        chart_dir="../../helm/flask-app-chart"
+        chart_dir="./helm/flask-app-chart"
         new_flask_image_tag=${{ github.sha }}
 
         # Update the values.yaml file with the new Flask app image tag
