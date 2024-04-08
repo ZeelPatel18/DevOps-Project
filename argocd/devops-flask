@@ -1,0 +1,23 @@
+project: default
+source:
+  repoURL: 'https://github.com/ZeelPatel18/DevOps-Project.git'
+  path: helm/flask-app-chart
+  targetRevision: HEAD
+  helm:
+    valueFiles:
+      - values.yaml
+    parameters:
+      - name: env.mysqlhost
+        value: 10.107.209.4
+      - name: service.nodePort
+        value: '30011'
+    releaseName: devops-flask-release
+destination:
+  server: 'https://kubernetes.default.svc'
+  namespace: my-app-flask
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
