@@ -68,6 +68,11 @@ jobs:
       
     - name: Commit and Push Changes to Helm Chart
       run: | 
+        chart_dir="./helm"
+        if [ -z "$chart_dir" ]; then
+          echo "chart_dir is empty or not set correctly."
+        exit 1
+        fi
         git config --global user.name 'ZeelPatel18'
         git config --global user.email '16mscit125@gmail.com'
         git add "$chart_dir"
