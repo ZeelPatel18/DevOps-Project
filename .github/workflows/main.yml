@@ -28,7 +28,7 @@ jobs:
   
     - name: Build and Push Flask App Image
       run: |
-        ocker build -t zeelpatel7610/devops-project_backend:latest ./flask
+        docker build -t zeelpatel7610/devops-project_backend:latest ./flask
         docker tag zeelpatel7610/devops-project_backend:latest zeelpatel7610/devops-project_backend:$(date +%Y%m%d%H%M%S)
         docker push zeelpatel7610/devops-project_backend
 
