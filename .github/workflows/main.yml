@@ -71,4 +71,4 @@ jobs:
         git config --global user.email '16mscit125@gmail.com'
         git add .
         git commit -m "Update Docker image tags in Helm chart"
-        git push
+        git push origin main
