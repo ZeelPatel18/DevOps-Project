@@ -1,0 +1,18 @@
+project: default
+source:
+  repoURL: 'https://github.com/ZeelPatel18/DevOps-Project.git'
+  path: helm/mysql-chart
+  targetRevision: HEAD
+  helm:
+    valueFiles:
+      - values.yaml
+    releaseName: devops-app-release
+destination:
+  server: 'https://kubernetes.default.svc'
+  namespace: myapp
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
