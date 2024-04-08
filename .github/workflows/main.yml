@@ -27,14 +27,14 @@ jobs:
 
     - name: Build and Push MySQL Image
       run: |
-        docker build -t zeelpatel7610/mysql:latest ./mysql
-        docker tag zeelpatel7610/mysql:latest zeelpatel7610/mysql:$(date +%Y%m%d%H%M%S)
+        docker build -t zeelpatel7610/mysql:$(date +%Y%m%d%H%M%S) ./mysql
+        docker push zeelpatel7610/mysql:$(date +%Y%m%d%H%M%S)
         docker push zeelpatel7610/mysql
   
     - name: Build and Push Flask App Image
       run: |
-        docker build -t zeelpatel7610/devops-project_backend:latest ./flask
-        docker tag zeelpatel7610/devops-project_backend:latest zeelpatel7610/devops-project_backend:$(date +%Y%m%d%H%M%S)
+        docker build -t zeelpatel7610/devops-project_backend:$(date +%Y%m%d%H%M%S) ./flask
+        docker push zeelpatel7610/devops-project_backend:$(date +%Y%m%d%H%M%S)
         docker push zeelpatel7610/devops-project_backend
 
     
