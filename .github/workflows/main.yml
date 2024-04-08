@@ -52,24 +52,24 @@ jobs:
     - name: Update MySQL Image Tag in Helm Chart
       run: |
         chart_dir="./helm/mysql-chart"
-        new_mysql_image_tag=${{ github.sha }}
+        new_mysql_image_tag=$(date +%Y%m%d%H%M%S)
 
         # Update the values.yaml file with the new MySQL image tag
-        sed -i "s/^  mysqlImageTag: .*/  mysqlImageTag: $new_mysql_image_tag/" "$chart_dir/values.yaml"
+        sed -i "s/^ *tag: .*/  tag: $new_mysql_image_tag/" "$chart_dir/values.yaml"
 
     - name: Update Flask App Image Tag in Helm Chart
       run: |
         chart_dir="./helm/flask-app-chart"
-        new_flask_image_tag=${{ github.sha }}
+        new_flask_image_tag=$(date +%Y%m%d%H%M%S)
 
         # Update the values.yaml file with the new Flask app image tag
-        sed -i "s/^  flaskAppImageTag: .*/  flaskAppImageTag: $new_flask_image_tag/" "$chart_dir/values.yaml"
+        sed -i "s/^ *tag: .*/  tag: $new_flask_image_tag/" "$chart_dir/values.yaml"
 
       
     - name: Commit and Push Changes to Helm Chart
       run: | 
         git config --global user.name 'ZeelPatel18'
         git config --global user.email '16mscit125@gmail.com'
-        git add .
+        git add "$chart_dir"
         git commit -m "Update Docker image tags in Helm chart"
         git push origin main
