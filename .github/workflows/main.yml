@@ -78,7 +78,7 @@ jobs:
     - name: Update Flask App Image Tag in Helm Chart
       run: |
         chart_dir="./helm/flask-app-chart"
-        new_flask_image_tag=$(date +%Y%m%d%H%M%S)
+        new_flask_image_tag=$(version)
 
         # Update the values.yaml file with the new Flask app image tag
         sed -i "s/^ *tag: .*/  tag: $new_flask_image_tag/" "$chart_dir/values.yaml"
