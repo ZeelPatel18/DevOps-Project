@@ -34,9 +34,27 @@ jobs:
   
     - name: Build and Push Flask App Image
       run: |
+        # Retrieve the latest version from the Docker registry (assuming tags are in vX format)
+        latest_tag=$(docker image ls zeelpatel7610/devops-project_backend --format "{{.Tag}}" | grep -E '^v[0-9]+$' | sort -Vr | head -n 1)
+
+        if [ -z "$latest_tag" ]; then
+          # If no previous versions exist, start with v1
+          version="v1"
+        else
+          # Extract the version number from the latest tag and increment it
+          latest_version=$(echo "$latest_tag" | sed 's/v//')
+          next_version=$((latest_version + 1))
+          version="v$next_version"
+        fi
+
+        # Build the Docker image with the generated version tag
+        docker build -t zeelpatel7610/devops-project_backend:$version ./flask
+
+        # Push the Docker image with the generated version tag
+        docker push zeelpatel7610/devops-project_backend:$version
         
-        docker build -t zeelpatel7610/devops-project_backend:latest ./flask
-        docker push zeelpatel7610/devops-project_backend:latest
+        # docker build -t zeelpatel7610/devops-project_backend:latest ./flask
+        # docker push zeelpatel7610/devops-project_backend:latest
 
     
 
