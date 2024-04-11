@@ -27,9 +27,9 @@ jobs:
 
     - name: Build and Push MySQL Image
       run: |
-        timestamp1=$(date +%Y%m%d%H%M%S)
-        docker build -t zeelpatel7610/mysql:$timestamp1 ./mysql
-        docker push zeelpatel7610/mysql:$timestamp1
+        #timestamp1=$(date +%Y%m%d%H%M%S)
+        docker build -t zeelpatel7610/mysql:latest ./mysql
+        docker push zeelpatel7610/mysql:latest
 
   
     - name: Build and Push Flask App Image
@@ -52,7 +52,7 @@ jobs:
     - name: Update MySQL Image Tag in Helm Chart
       run: |
         chart_dir="./helm/mysql-chart"
-        new_mysql_image_tag=$(date +%Y%m%d%H%M%S)
+        new_mysql_image_tag=latest
 
         # Update the values.yaml file with the new MySQL image tag
         sed -i "s/^ *tag: .*/  tag: $new_mysql_image_tag/" "$chart_dir/values.yaml"
