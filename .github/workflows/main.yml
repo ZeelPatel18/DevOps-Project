@@ -26,7 +26,6 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and Push MySQL Image
-      working-directory: mysql/Dockerfile
       run: |
         timestamp1=$(date +%Y%m%d%H%M%S)
         docker build -t zeelpatel7610/mysql:$timestamp1 ./mysql
@@ -34,7 +33,6 @@ jobs:
 
   
     - name: Build and Push Flask App Image
-      working-directory: flask/Dockerfile
       run: |
         timestamp2=$(date +%Y%m%d%H%M%S)
         docker build -t zeelpatel7610/devops-project_backend:$timestamp2 ./flask
