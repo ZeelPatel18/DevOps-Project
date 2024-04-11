@@ -34,9 +34,9 @@ jobs:
   
     - name: Build and Push Flask App Image
       run: |
-        timestamp2=$(date +%Y%m%d%H%M%S)
-        docker build -t zeelpatel7610/devops-project_backend:$timestamp2 ./flask
-        docker push zeelpatel7610/devops-project_backend:$timestamp2
+        #timestamp2=$(date +%Y%m%d%H%M%S)
+        docker build -t zeelpatel7610/devops-project_backend:latest ./flask
+        docker push zeelpatel7610/devops-project_backend:latest
 
     
 
@@ -60,7 +60,7 @@ jobs:
     - name: Update Flask App Image Tag in Helm Chart
       run: |
         chart_dir="./helm/flask-app-chart"
-        new_flask_image_tag=$(date +%Y%m%d%H%M%S)
+        new_flask_image_tag=latest
       
         # Update the values.yaml file with the new Flask app image tag
         sed -i "s/^ *tag: .*/  tag: $new_flask_image_tag/" "$chart_dir/values.yaml"
