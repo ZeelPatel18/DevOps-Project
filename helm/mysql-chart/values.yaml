@@ -8,7 +8,7 @@ image:
   repository: zeelpatel7610/mysql
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 20240411
+  tag: 20240411211115
 
 env:
   mysqlrootpw: admin
