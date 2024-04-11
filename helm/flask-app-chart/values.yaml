@@ -8,7 +8,7 @@ image:
   repository: zeelpatel7610/devops-project_backend
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 20240411174404
+  tag: 20240411180954
 
 env:
   mysqlhost: 10.107.209.4
