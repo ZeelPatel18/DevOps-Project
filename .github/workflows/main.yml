@@ -79,6 +79,9 @@ jobs:
       run: |
         chart_dir="./helm/flask-app-chart"
         new_flask_image_tag=$(version)
+        
+        # Escape special characters in the new image tag
+        escaped_tag=$(printf '%s\n' "$new_flask_image_tag" | sed 's/[\&/]/\\&/g')
 
         # Update the values.yaml file with the new Flask app image tag
         sed -i "s/^ *tag: .*/  tag: $new_flask_image_tag/" "$chart_dir/values.yaml"
