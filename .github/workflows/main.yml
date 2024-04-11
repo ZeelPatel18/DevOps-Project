@@ -27,16 +27,16 @@ jobs:
 
     - name: Build and Push MySQL Image
       run: |
-        timestamp=$(date +%Y%m%d%H%M)
-        docker build -t zeelpatel7610/mysql:$timestamp ./mysql
-        docker push zeelpatel7610/mysql:$timestamp
+        timestamp1=$(date +%Y%m%d%H%M)
+        docker build -t zeelpatel7610/mysql:$timestamp1 ./mysql
+        docker push zeelpatel7610/mysql:$timestamp1
 
   
     - name: Build and Push Flask App Image
       run: |
-        timestamp=$(date +%Y%m%d%H%M)
-        # docker build -t zeelpatel7610/devops-project_backend:$timestamp ./flask
-        # docker push zeelpatel7610/devops-project_backend:$timestamp
+        timestamp2=$(date +%Y%m%d%H%M)
+        # docker build -t zeelpatel7610/devops-project_backend:$timestamp2 ./flask
+        # docker push zeelpatel7610/devops-project_backend:$timestamp2
 
     
 
