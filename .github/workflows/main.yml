@@ -34,9 +34,9 @@ jobs:
   
     - name: Build and Push Flask App Image
       run: |
-        timestamp=$(date +%Y%m%d%H%M%S)
-        docker build -t zeelpatel7610/devops-project_backend:$timestamp ./flask
-        docker push zeelpatel7610/devops-project_backend:$timestamp
+        
+        docker build -t zeelpatel7610/devops-project_backend:latest ./flask
+        docker push zeelpatel7610/devops-project_backend:latest
 
     
 
